@@ -15,70 +15,82 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 
 @Entity
 @Table(name = "plantmasterschedule")
 @EntityListeners(AuditingEntityListener.class)
 public class PlantMasterSchedule {
-
+	/**
+	 * id of this entity 
+	 * its primary key
+	 */
 	@Id
 	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long scheduleid;
-
+	private Long scheduleId;
+	
+	/**
+	 * plantmasterId 
+	 */
 	@Column(name = "plantmasterId", nullable = false)
 	private long plantmasterId;
-
+	
+	/**
+	 * date in which plantmaster can add its schedule
+	 */
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	@Column(name = "date", nullable = false)
 	private Date date;
-
-	//@Temporal(TemporalType.TIME)
+	
+	/**
+	 * plantmaster is unavailable from
+	 */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	@Column(name = "unavailfrom", nullable = false)
-	private LocalTime unavailfrom;
-
-	//@Temporal(TemporalType.TIME)
+	private LocalTime unavailFrom;
+	
+	/**
+	 * plantmaster is unavailability to
+	 */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	@Column(name = "unavailto", nullable = false)
-	private LocalTime unavailto;
-
+	private LocalTime unavailTo;
+	
+	/**
+	 * timestamp where each record updated at a time
+	 */
 	@JsonIgnore
 	@UpdateTimestamp
-	@Temporal(TemporalType.TIMESTAMP)	
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, timezone ="IST")
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updatedat", nullable = false)
-	private Date updatedat;
+	private Date updatedAt;
 
 	public PlantMasterSchedule() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PlantMasterSchedule(Long scheduleid, long plantmasterId, Date date, LocalTime unavailfrom, LocalTime unavailto,
-			Date updatedat) {
+	public PlantMasterSchedule(Long scheduleId, long plantmasterId, Date date, LocalTime unavailFrom,
+			LocalTime unavailTo, Date updatedAt) {
 		super();
-		this.scheduleid = scheduleid;
+		this.scheduleId = scheduleId;
 		this.plantmasterId = plantmasterId;
 		this.date = date;
-		this.unavailfrom = unavailfrom;
-		this.unavailto = unavailto;
-		this.updatedat = updatedat;
+		this.unavailFrom = unavailFrom;
+		this.unavailTo = unavailTo;
+		this.updatedAt = updatedAt;
 	}
 
-	public Long getScheduleid() {
-		return scheduleid;
+	public Long getScheduleId() {
+		return scheduleId;
 	}
 
-	public void setScheduleid(Long scheduleid) {
-		this.scheduleid = scheduleid;
+	public void setScheduleId(Long scheduleId) {
+		this.scheduleId = scheduleId;
 	}
 
 	public long getPlantmasterId() {
@@ -97,36 +109,34 @@ public class PlantMasterSchedule {
 		this.date = date;
 	}
 
-	public LocalTime getUnavailfrom() {
-		return unavailfrom;
+	public LocalTime getUnavailFrom() {
+		return unavailFrom;
 	}
 
-	public void setUnavailfrom(LocalTime unavailfrom) {
-		this.unavailfrom = unavailfrom;
+	public void setUnavailFrom(LocalTime unavailFrom) {
+		this.unavailFrom = unavailFrom;
 	}
 
-	public LocalTime getUnavailto() {
-		return unavailto;
+	public LocalTime getUnavailTo() {
+		return unavailTo;
 	}
 
-	public void setUnavailto(LocalTime unavailto) {
-		this.unavailto = unavailto;
+	public void setUnavailTo(LocalTime unavailTo) {
+		this.unavailTo = unavailTo;
 	}
 
-	public Date getUpdatedat() {
-		return updatedat;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdatedat(Date updatedat) {
-		this.updatedat = updatedat;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	@Override
 	public String toString() {
-		return "PlantMasterSchedule [scheduleid=" + scheduleid + ", plantmasterId=" + plantmasterId + ", date=" + date
-				+ ", unavailfrom=" + unavailfrom + ", unavailto=" + unavailto + ", updatedat=" + updatedat + "]";
+		return "PlantMasterSchedule [scheduleId=" + scheduleId + ", plantmasterId=" + plantmasterId + ", date=" + date
+				+ ", unavailFrom=" + unavailFrom + ", unavailTo=" + unavailTo + ", updatedAt=" + updatedAt + "]";
 	}
-	
-	
 
 }
